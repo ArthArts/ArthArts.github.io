@@ -1,0 +1,13 @@
+let teclas = document.querySelectorAll(".tecla, .tecla-preta");
+teclas.forEach(function(tecla) {
+    tecla.style.backgroundColor = "white";
+    tecla.addEventListener("click", function() {
+        setTimeout(function() {
+            tecla.style.backgroundColor = "white"
+        }, 200);
+        let audioOriginal = tecla.querySelector("audio");
+        let copia = audioOriginal.cloneNode();
+        copia.play();
+        tecla.style.backgroundColor = "gray";
+    });
+});

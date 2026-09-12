@@ -1,0 +1,26 @@
+.tecla-branca {
+    width: 80px;
+    height: 300px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.tecla-preta {
+    width: 50px;
+    height: 180px;
+    background-color: black;
+    position: absolute;
+    border-radius: 5px;
+}
+
+#c6s-tecla { left: 57px; }
+#d6s-tecla { left: 139px; }
+#f6s-tecla { left: 303px; }
+#g6s-tecla { left: 385px; }
+#a6s-tecla { left: 467px; }
+
+.teclas {
+    display: flex;
+    position: relative;
+}

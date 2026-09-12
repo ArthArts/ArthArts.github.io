@@ -1,0 +1,21 @@
+let teclas = document.querySelectorAll(".tecla-branca, .tecla-preta");
+teclas.forEach(function(tecla) {
+    if (tecla.classList.contains("tecla-preta")) {
+        tecla.style.backgroundColor = "black";
+    } else {
+        tecla.style.backgroundColor = "white";
+    }
+    tecla.addEventListener("click", function() {
+        setTimeout(function() {
+            if (tecla.classList.contains("tecla-preta")) {
+                tecla.style.backgroundColor = "black";
+            } else {
+                tecla.style.backgroundColor = "white";
+            }
+        }, 200);
+        let audioOriginal = tecla.querySelector("audio");
+        let copia = audioOriginal.cloneNode();
+        copia.play();
+        tecla.style.backgroundColor = "gray";
+    });
+});

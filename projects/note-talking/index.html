@@ -1,129 +1,57 @@
+
+
 <!DOCTYPE html>
-<html lang="pt">
+
+<html lang="pt-br">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="./favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="style.css">
+
     <title>Bloco de Notas</title>
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        /* Variáveis de cores ajustadas para legibilidade */
-        :root { 
-            --bg: #f8f9fa; 
-            --card: #ffffff; 
-            --text: #212529; 
-            --muted: #6c757d;
-            --border: #ced4da; 
-        }
-        [data-theme="dark"] { 
-            --bg: #121212; 
-            --card: #1e1e1e; 
-            --text: #f0f0f0; /* Texto quase branco para contraste */
-            --muted: #aaaaaa; /* Texto secundário visível */
-            --border: #444444; 
-        }
-
-        body { background-color: var(--bg); color: var(--text); padding-top: 20px; transition: 0.3s; }
-        .main-container { 
-            max-width: 900px; margin: auto; background: var(--card); 
-            padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-            border: 1px solid var(--border); 
-        }
-        
-        /* Ajuste específico para a área de digitação */
-        .textarea { 
-            width: 100%; border: 1px solid var(--border); border-radius: 4px; 
-            padding: 15px; font-family: 'Consolas', 'Monaco', monospace; 
-            resize: vertical; background: transparent; color: var(--text); 
-            outline: none;
-        }
-        
-        .form-control { background: transparent !important; color: var(--text) !important; border-color: var(--border); }
-        .form-control::placeholder { color: var(--muted); opacity: 0.7; }
-        .text-muted { color: var(--muted) !important; }
-        
-        .footer { margin-top: 50px; text-align: center; color: var(--muted); font-size: 0.9em; }
-    </style>
 </head>
-<body data-theme="light">
 
-<div class="container text-end mb-2" style="max-width: 900px;">
-    <button class="btn btn-sm btn-outline-secondary" onclick="toggleTheme()">
-        <i class="bi bi-moon-stars"></i> Alternar Tema
-    </button>
-</div>
+<body>
 
-<div class="container main-container">
-    <form id="noteForm">
-        <div class="mb-3">
-            <input type="text" id="noteTitle" class="form-control form-control-lg" placeholder="Título da Nota" style="font-weight: bold; border: none; border-bottom: 2px solid var(--border); border-radius: 0;">
-        </div>
+    <div id="notepad-container">
 
-        <div class="mb-3 d-flex gap-3 text-muted" style="font-size: 0.9em;">
-            <span><i class="bi bi-code-slash me-1"></i> Multi-formato</span>
-            <span><i class="bi bi-keyboard me-1"></i> Ctrl + S para salvar</span>
-        </div>
-        
-        <div class="mb-3">
-            <textarea id="noteContent" class="textarea" rows="20" placeholder="Digite seu código ou texto aqui..."></textarea>
-        </div>
+        <div id="buttons">
 
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <button type="button" class="btn btn-primary" onclick="saveFile()">
-                    <i class="bi bi-download me-2"></i>Salvar Como...
-                </button>
-                <button type="button" class="btn btn-outline-secondary ms-2" onclick="window.print()">
-                    <i class="bi bi-printer"></i>
-                </button>
+            <div id="buttons-left">
+
+                <select id="note-select"></select>
+
             </div>
-            <small class="text-muted">Pressione Ctrl+S a qualquer momento.</small>
+
+            <div id="buttons-right">
+
+                <button id="new-note">Nova Nota</button>
+
+                <button id="delete-note">Remover Nota</button>
+
+            </div>
+
         </div>
-    </form>
-</div>
 
-<footer class="footer">
-    <p>&copy; 2026 - Editor Minimalista</p>
-</footer>
+        <div id="notepad">
 
-<script>
-    // Função para alternar entre modo claro e escuro
-    function toggleTheme() {
-        const body = document.body;
-        const current = body.getAttribute('data-theme');
-        body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
-    }
+            <textarea id="note" placeholder="Escreva suas notas aqui..."></textarea>
 
-    // Função principal para salvar o arquivo
-    function saveFile() {
-        const title = document.getElementById('noteTitle').value || 'nota_sem_titulo';
-        const content = document.getElementById('noteContent').value;
-        
-        // Pergunta ao usuário o nome e a extensão
-        const fileName = prompt("Digite o nome do arquivo com a extensão (ex: estilo.css, script.js):", title + ".txt");
-        
-        if (fileName) {
-            const blob = new Blob([content], { type: "text/plain" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = fileName;
-            link.click();
-            URL.revokeObjectURL(link.href);
-        }
-    }
+        </div>
 
-    // Captura o atalho de teclado Ctrl + S
-    document.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-            e.preventDefault(); // Impede que o navegador tente salvar a página HTML
-            saveFile();
-        }
-    });
-</script>
+    </div>
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
+
+        
